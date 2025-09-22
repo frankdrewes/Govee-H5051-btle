@@ -35,3 +35,5 @@ Notes:
 - This script assumes passive BLE scanning only—no active connections or GATT reads.
 - Govee’s manufacturer ID (60552) is hardcoded; adjust if using other models.
 - BLE advertising intervals vary; multiple packets may be received per device.
+
+The -alt version collects a single value within a timeout period
