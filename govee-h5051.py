@@ -34,6 +34,9 @@ def detection_callback(device, adv_data):
         if mfg_data:
             parse_govee_data(mfg_data)
             print("Raw payload:", mfg_data.hex())
+            print(f"Device Address: {device.address}")
+            print(f"Name: {device.name}")
+            print(f"Signal: {adv_data.rssi} dBm")
 
 async def main():
     scanner = BleakScanner(detection_callback)

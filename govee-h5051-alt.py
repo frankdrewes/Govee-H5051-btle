@@ -22,6 +22,9 @@ def detection_callback(device, adv_data):
             print(f"Temperature: {temp_c:.2f} C / {temp_f:.2f} F")
             print(f"Humidity: {humidity:.2f} %")
             print(f"Battery: {battery} %")
+            print(f"Device Address: {device.address}")
+            print(f"Name: {device.name}")
+            print(f"Signal: {adv_data.rssi} dBm")
 
             # Signal that we're done
             found.set()
