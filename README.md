@@ -1,6 +1,4 @@
-# Govee-H5051-btle
-
-Govee H5051 BLE Scanner
+# Govee H5051 BLE Scanner
 
 This script uses Bleak to passively scan Bluetooth Low Energy (BLE) advertising packets from Govee H5051 temperature/humidity sensors. It decodes the raw manufacturer data into human-readable temperature (°C/°F), humidity (%), and battery level (%).
 
