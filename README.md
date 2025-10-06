@@ -40,3 +40,5 @@ The Govee H5051 broadcasts a 6-byte manufacturer data payload:
 - BLE advertising intervals vary; multiple packets may be received per device.
 
 The -alt version collects a single value within a timeout period
+
+More help is available online.
