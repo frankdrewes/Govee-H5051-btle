@@ -5,7 +5,7 @@ import time
 from datetime import datetime
 from bleak import BleakScanner
 import asyncio
-from rich.progress import Progress  
+from rich.progress import Progress, BarColumn, TextColumn, TimeRemainingColumn
 
 # Flag to stop scanning once a value is found
 found = asyncio.Event()
@@ -69,12 +69,18 @@ async def main():
     scanner = BleakScanner(detection_callback)
     await scanner.start()
 
-    # Show progress bar for 30 seconds
-    with Progress() as progress:
-        task = progress.add_task("[cyan]Scanning BLE devices...", total=30)
-        for _ in range(30):
+    # Countdown from 45 seconds
+    with Progress(
+        TextColumn("[cyan]Scanning BLE devices..."),
+        BarColumn(),
+        TextColumn("[progress.remaining] {task.remaining} sec left"),
+    ) as progress:
+        task = progress.add_task("scan", total=45)
+        for remaining in reversed(range(45)):
+            if found.is_set():
+                break
             await asyncio.sleep(1)
-            progress.update(task, advance=1)
+            progress.update(task, completed=45 - remaining)
 
     await scanner.stop()
         

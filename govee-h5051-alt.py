@@ -34,7 +34,7 @@ async def main():
     scanner = BleakScanner(detection_callback)
     await scanner.start()
 
- # Countdown from 30 seconds
+ # Countdown from 45 seconds
     with Progress(
         TextColumn("[cyan]Scanning BLE devices..."),
         BarColumn(),
