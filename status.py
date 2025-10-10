@@ -13,7 +13,8 @@ cursor = conn.cursor()
 
 # Calculate cutoff timestamp
 cutoff = datetime.now() - timedelta(hours=4)
-cutoff_iso = cutoff.isoformat()
+cutoff_sql = cutoff.strftime("%Y-%m-%d %H:%M:%S")
+print(cutoff_sql)
 
 # Query last 4 hours of data
 cursor.execute("""
@@ -21,7 +22,7 @@ cursor.execute("""
     FROM data
     WHERE timestamp >= ?
     ORDER BY timestamp DESC
-""", (cutoff_iso,))
+""", (cutoff_sql,) )
 rows = cursor.fetchall()
 conn.close()
 
@@ -29,13 +30,15 @@ conn.close()
 table = Table(title="Sensor Data (Last 4 Hours)", show_lines=True)
 table.add_column("Time", style="cyan")
 table.add_column("Temp (°C)", justify="right")
+table.add_column("Temp (F)", justify="right")
 table.add_column("Humidity (%)", justify="right")
 table.add_column("Battery (%)", justify="right")
 table.add_column("Signal (dBm)", justify="right")
-table.add_column("Sensor ID", style="magenta")
+#table.add_column("Sensor ID", style="magenta")
 
-for ts, temp, hum, bat, sig, sid in rows:
-    table.add_row(ts, f"{temp:.2f}", f"{hum:.2f}", str(bat), str(sig), sid)
+for ts, temp_c, hum, bat, sig, sid in rows:
+    temp_f = temp_c * 9 / 5 + 32
+    table.add_row(ts, f"{temp_c:.2f}", f"{temp_f:.2f}", f"{hum:.2f}", str(bat), str(sig))
 
 # Display in panel
 console = Console()
