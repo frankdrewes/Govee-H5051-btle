@@ -43,12 +43,23 @@ def detection_callback(device, adv_data):
             # Signal that we're done
             found.set()   
             
-def log_to_sqlite(temp,humidity,battery,signal,sensor_id):
+def log_to_sqlite(temperature, humidity,battery,signal,sensor_id):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    
-    cursor.execute("INSERT INTO data (timestamp, temp, humidity, battery, signal, sensor_id) VALUES (?, ?, ?, ?, ?, ?)",
-                   (datetime.now().strftime("%Y-%m-%d %H:%M:%S"), temp, humidity, battery, signal, sensor_id))
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS data (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            timestamp TEXT,
+            temperature REAL,
+            humidity REAL,
+            battery INTEGER,
+            signal INTEGER,
+            sensor_id TEXT
+        )
+    """)
+
+    cursor.execute("INSERT INTO data (timestamp, temperature, humidity, battery, signal, sensor_id) VALUES (?, ?, ?, ?, ?, ?)",
+                   (datetime.now().strftime("%Y-%m-%d %H:%M:%S"), temperature, humidity, battery, signal, sensor_id))
 
     conn.commit()
     conn.close()
