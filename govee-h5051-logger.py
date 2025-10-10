@@ -68,7 +68,7 @@ async def main():
     scanner = BleakScanner(detection_callback)
     await scanner.start()
     try:
-        await asyncio.wait_for(found.wait(), timeout=15)  # Wait up to 15 seconds
+        await asyncio.wait_for(found.wait(), timeout=30)  # Wait up to 30 seconds
     except asyncio.TimeoutError:
         print("No Govee packet received within timeout.")
     await scanner.stop()
