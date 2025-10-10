@@ -1,5 +1,7 @@
 from bleak import BleakScanner
 import asyncio
+from rich.progress import Progress
+
 
 # Flag to stop scanning once a value is found
 found = asyncio.Event()
@@ -32,10 +34,14 @@ def detection_callback(device, adv_data):
 async def main():
     scanner = BleakScanner(detection_callback)
     await scanner.start()
-    try:
-        await asyncio.wait_for(found.wait(), timeout=15)  # Wait up to 15 seconds
-    except asyncio.TimeoutError:
-        print("No Govee packet received within timeout.")
+
+    # Show progress bar for 30 seconds
+    with Progress() as progress:
+        task = progress.add_task("[cyan]Scanning BLE devices...", total=30)
+        for _ in range(30):
+            await asyncio.sleep(1)
+            progress.update(task, advance=1)
+
     await scanner.stop()
 
 
