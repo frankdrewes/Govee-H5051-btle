@@ -24,6 +24,18 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
    
 def detection_callback(device: BLEDevice, data: AdvertisementData):
+    """
+        Summary:
+            Called when an update is received from the bluetooth device.
+        Parameters:
+            BLEDevice: 
+                The BLE device.
+            AdvertisementData: 
+                The advertisement data.
+        Returns:
+            A dictionary with the sensor data if the device is a Govee H5051, otherwise None.
+    """
+    
     if not data.local_name or not data.local_name.startswith('Govee_H5051_'):
         return
     
@@ -36,10 +48,8 @@ def detection_callback(device: BLEDevice, data: AdvertisementData):
     sensor_id=device.name
 
     table = Table(show_header=False,  title="H5051 BLE Sensor Telemetry")
-
     table.add_column("Field", style="cyan", no_wrap=True)
     table.add_column("Value", style="magenta")
-
     table.add_row("Name", device.name)
     table.add_row("Device Address", device.address)
     table.add_row("Sensor ID", sensor_id)
@@ -47,7 +57,6 @@ def detection_callback(device: BLEDevice, data: AdvertisementData):
     table.add_row("Humidity", f"{humidity:.2f} %")
     table.add_row("Battery", f"{battery} %")
     table.add_row("Signal", f"{signal} dBm")
-
     console.print(table)
              
     log_to_sqlite(temperature, humidity, battery, signal, sensor_id)
