@@ -41,4 +41,9 @@ The Govee H5051 broadcasts a 6-byte manufacturer data payload:
 
 The -alt version collects a single value within a timeout period
 
-More help is available online. Updates will be posted here.
+## govee-h5051-logger.py
+ - Logs data to sqlite3 database
+
+## status.py
+ - Shows the most recent data logged
+ 
