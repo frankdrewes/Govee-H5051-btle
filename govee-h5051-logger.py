@@ -24,18 +24,18 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
    
 def detection_callback(device: BLEDevice, data: AdvertisementData):
-    if not data.local_name or not data.local_name.startswith('GVH5075_'):
+    if not data.local_name or not data.local_name.startswith('Govee_H5051_'):
         return
     
     device_data = data.manufacturer_data.get(60552) # Govee's manufacturer ID
     if not device_data :
         return
     
-    battery, temperature, humidity = decode_data(device_data)
+    temperature, humidity, battery = decode_data(device_data)
     signal = data.rssi
     sensor_id=device.name
 
-    table = Table(show_header=False,  title="H5075 BLE Sensor Telemetry")
+    table = Table(show_header=False,  title="H5051 BLE Sensor Telemetry")
 
     table.add_column("Field", style="cyan", no_wrap=True)
     table.add_column("Value", style="magenta")
