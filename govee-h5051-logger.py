@@ -10,7 +10,7 @@ from rich.progress import Progress, BarColumn, TextColumn, TimeRemainingColumn
 # Flag to stop scanning once a value is found
 found = asyncio.Event()
 
-DB_PATH = "/databases/govee5051.sqlite"  
+DB_PATH = "/databases/sensordata.sqlite"  
 
 
    
