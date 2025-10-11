@@ -6,7 +6,7 @@ from rich.table import Table
 from rich.text import Text
 
 # Path to your SQLite database
-DB_PATH = "/databases/govee5051.sqlite"
+DB_PATH = "/databases/sensordata.sqlite"
 
 # Connect to the database
 conn = sqlite3.connect(DB_PATH)
