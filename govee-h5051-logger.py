@@ -65,6 +65,11 @@ def detection_callback(device: BLEDevice, data: AdvertisementData):
     found.set() 
 
 def decode_data(device_data):
+    """ 
+    summary_ 
+    Decode temperature, humidity and battery from Govee H5051 advertisement packet.
+    Returns temperature in Celsius, relative humidity in percent and battery in percent
+    """
     # Temperature
     temp_raw = int.from_bytes(device_data[1:3], byteorder='little')
     temperature = temp_raw / 100
@@ -118,7 +123,7 @@ async def main():
     scanner = BleakScanner(detection_callback)
     await scanner.start()
 
-    # Countdown from 45 seconds
+    # Countdown from 60 seconds
     with Progress(
         TextColumn("[cyan]Scanning for Govee H5051 BLE devices..."),
         BarColumn(),
