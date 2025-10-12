@@ -18,7 +18,7 @@ cutoff_sql = cutoff.strftime("%Y-%m-%d %H:%M:%S")
 
 # Query last 4 hours of data
 cursor.execute("""
-    SELECT timestamp, temperature, humidity, battery, signal
+    SELECT timestamp, temperature, humidity, battery, signal, sensor_id
     FROM data
     WHERE timestamp >= ?
     ORDER BY timestamp DESC
@@ -34,12 +34,13 @@ table.add_column("Temp (°F)", justify="right")
 table.add_column("Humidity (%)", justify="right")
 table.add_column("Battery (%)", justify="right")
 table.add_column("Signal (dBm)", justify="right")
+table.add_column("Sensor_ID", justify="right")
 
 latest_timestamp = None
 
-for ts, temp_c, hum, bat, sig in rows:
+for ts, temp_c, hum, bat, sig, sensor_id in rows:
     temp_f = temp_c * 9 / 5 + 32
-    table.add_row(ts, f"{temp_c:.2f}", f"{temp_f:.2f}", f"{hum:.2f}", str(bat), str(sig))
+    table.add_row(ts, f"{temp_c:.2f}", f"{temp_f:.2f}", f"{hum:.2f}", str(bat), str(sig), f"{sensor_id}")
     if not latest_timestamp:
         latest_timestamp = ts  # First row is most recent due to DESC
 

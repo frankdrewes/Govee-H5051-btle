@@ -1,3 +1,39 @@
+# Govee H5051 BLE Scanner & Logger
+
+This Python script scans for **Govee H5051 BLE sensors**, decodes their advertisement payloads, and logs temperature, humidity, battery level, and signal strength into a local SQLite database. It also displays real-time telemetry using [Rich](https://github.com/Textualize/rich) for a clean terminal UI.
+
+---
+
+## 🔍 Features
+
+- Detects BLE devices with names starting with `Govee_H5051_`
+- Filters for Govee's manufacturer ID (`60552`)
+- Decodes:
+  - Temperature (°C)
+  - Humidity (%)
+  - Battery level (%)
+  - Signal strength (RSSI)
+- Displays telemetry in a styled Rich table
+- Logs data into a local SQLite database
+- Stops scanning once a valid device is found or after 60 seconds
+
+---
+
+## 🧰 Requirements
+
+- Python 3.7+
+- [Bleak](https://pypi.org/project/bleak/)
+- [Rich](https://pypi.org/project/rich/)
+
+Install dependencies:
+
+
+pip install bleak rich 
+
+
+
+
+
 # Govee H5051 BLE Scanner
 
 This script uses Bleak to passively scan Bluetooth Low Energy (BLE) advertising packets from Govee H5051 temperature/humidity sensors. It decodes the raw manufacturer data into human-readable temperature (°C/°F), humidity (%), and battery level (%).
