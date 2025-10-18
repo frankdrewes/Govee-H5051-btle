@@ -42,7 +42,7 @@ async def main():
     scanner = BleakScanner(detection_callback)
     
     await scanner.start()
-    await asyncio.sleep(10)
+    await asyncio.sleep(600)
     await scanner.stop()
 
 asyncio.run(main())

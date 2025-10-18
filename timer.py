@@ -11,10 +11,10 @@ def detection_callback(device, adv_data):
             now = time.time()
             delta = None
 
-            print("Raw payload:", mfg_data.hex())
-            print(f"Device Address: {device.address}")
-            print(f"Name: {device.name}")
-            print(f"Signal: {adv_data.rssi} dBm")
+            #print("Raw payload:", mfg_data.hex())
+            #print(f"Device Address: {device.address}")
+            #print(f"   Name: {device.name}")
+            #print(f"   Signal: {adv_data.rssi} dBm")
             
             if device.address in last_seen:
                 delta = now - last_seen[device.address]
@@ -29,7 +29,7 @@ async def main():
     scanner = BleakScanner(detection_callback)
     
     await scanner.start()
-    await asyncio.sleep(600)
+    await asyncio.sleep(6000) # 100 minutes
     await scanner.stop()
 
 asyncio.run(main())
