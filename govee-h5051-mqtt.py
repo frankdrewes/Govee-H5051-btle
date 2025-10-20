@@ -33,7 +33,7 @@ MQTT_TOPIC =  "sensor/h5051"
 # Flag to stop scanning once a value is found
 found = asyncio.Event()
 
-DB_PATH = "/databases/sensordata.sqlite"  
+
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -105,9 +105,6 @@ def log_to_mqtt(temperature,
     print(f"MQTT publish done")
 
 
-
-
-
 def decode_data(device_data):
     """ 
     summary_ 
@@ -124,8 +121,6 @@ def decode_data(device_data):
     battery = device_data[5]
     return temperature,humidity,battery
             
-
-
 async def main():
     clear_screen()
     scanner = BleakScanner(detection_callback)
